@@ -1,0 +1,1437 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>忘れ草</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: one phone-width column on a polka-dot ground. A sticky top bar keeps the "I want to text him" button on every tab.
+   Home: pond strip, frog that gets happier, 60-day stamp card with treats. Notes: stationery (paper styles, stickers, postmarks, bunting).
+   Cheer: omikuji slips plus the person's own sentences. */
+:root{
+  --bg:#FFF4F7; --dot:#FFE2EA; --card:#FFFFFF; --ink:#5A4653; --ink-soft:#7A6571; --line:#F6CFDB; --stitch:#FFB3C8;
+  --pink:#FF86A8; --pink-deep:#E9567F; --pink-wash:#FFE3EB;
+  --mint:#9ED9C6; --mint-wash:#E0F4EC; --sky:#B5DBF2; --sky-wash:#E2F1FB;
+  --butter:#FFE08A; --butter-wash:#FFF4CF; --lilac-wash:#EDE5FA;
+  --frog:#A6DFB1; --frog-deep:#86CF9A; --frog-belly:#F4FBE8; --reed:#B58A6A;
+  --btn:#CF3563; --on-btn:#FFFFFF; --btn-shadow:#A52550; --focus:#3C8FCB; --scrim:rgba(90,70,83,.45);
+  --mochi:#FFFDFD; --mline:#6B5360;
+  --font-display:"Zen Maru Gothic","Noto Sans TC","Hiragino Maru Gothic ProN","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-body:"Noto Sans TC","PingFang TC","Hiragino Sans","Microsoft JhengHei",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#241C2B; --dot:#2E2437; --card:#33283C; --ink:#F6E8EF; --ink-soft:#C2ADBA; --line:#4B3D57; --stitch:#7C4C62;
+    --pink:#FF8FB0; --pink-deep:#FF9DB9; --pink-wash:#4B2F3F;
+    --mint:#7FC4AE; --mint-wash:#243C37; --sky:#8DC3E3; --sky-wash:#243746;
+    --butter:#F0CF74; --butter-wash:#463E24; --lilac-wash:#372D4D;
+    --frog:#7DC68F; --frog-deep:#5FAA77; --frog-belly:#EAF6DA; --reed:#C79C7B;
+    --btn:#FF8FB0; --on-btn:#3A1626; --btn-shadow:#C45577; --focus:#8DC3E3; --scrim:rgba(10,6,14,.68);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#241C2B; --dot:#2E2437; --card:#33283C; --ink:#F6E8EF; --ink-soft:#C2ADBA; --line:#4B3D57; --stitch:#7C4C62;
+  --pink:#FF8FB0; --pink-deep:#FF9DB9; --pink-wash:#4B2F3F;
+  --mint:#7FC4AE; --mint-wash:#243C37; --sky:#8DC3E3; --sky-wash:#243746;
+  --butter:#F0CF74; --butter-wash:#463E24; --lilac-wash:#372D4D;
+  --frog:#7DC68F; --frog-deep:#5FAA77; --frog-belly:#EAF6DA; --reed:#C79C7B;
+  --btn:#FF8FB0; --on-btn:#3A1626; --btn-shadow:#C45577; --focus:#8DC3E3; --scrim:rgba(10,6,14,.68);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--bg);
+  background-image:radial-gradient(var(--dot) 2.2px, transparent 2.8px);
+  background-size:24px 24px;
+  color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.75;
+}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--font-display); text-wrap:balance; line-height:1.35}
+button{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+.app{max-width:520px; margin:0 auto; padding-inline:16px; padding-block:0 112px; display:flex; flex-direction:column; gap:16px}
+
+/* sticky top bar */
+.top{position:sticky; top:env(safe-area-inset-top, 0px); z-index:20; display:flex; align-items:center; gap:10px; margin-inline:-16px; padding:8px 16px; background:var(--bg); border-bottom:2px dashed var(--line)}
+.top svg{flex:none}
+.brand{font-family:var(--font-display); font-weight:900; font-size:22px; letter-spacing:.04em; white-space:nowrap}
+.urge-btn{margin-left:auto; padding:8px 16px; min-height:44px; font-size:14px; white-space:nowrap}
+
+/* cards */
+.card{background:var(--card); border:2px solid var(--line); border-radius:26px; padding:18px; min-width:0}
+.stitch{position:relative}
+.stitch::after{content:""; position:absolute; inset:7px; border:2px dashed var(--stitch); border-radius:19px; pointer-events:none}
+.panel{display:flex; flex-direction:column; gap:16px}
+.hd{display:flex; flex-direction:column; gap:2px; min-width:0}
+.hd h2{font-size:22px; font-weight:900}
+.hd-row{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.soft{color:var(--ink-soft); font-size:13.5px}
+
+/* pond strip */
+.pond{border:2px solid var(--line); border-radius:26px; overflow:hidden; background:var(--sky-wash); line-height:0}
+.pond svg{display:block; width:100%; height:auto}
+.p-deep{fill:var(--sky); opacity:.35}
+.p-wave{fill:none; stroke:var(--sky); stroke-width:3; stroke-linecap:round}
+.p-pad{fill:var(--frog-deep); stroke:var(--mline); stroke-width:2}
+.p-reed{fill:none; stroke:var(--frog-deep); stroke-width:3; stroke-linecap:round}
+.p-cat{fill:var(--reed); stroke:var(--mline); stroke-width:1.6}
+.p-lot{fill:var(--pink); stroke:var(--mline); stroke-width:1.6}
+.p-bub{fill:none; stroke:var(--mline); stroke-width:1.6; opacity:0}
+.p-wing{fill:var(--card); stroke:var(--mline); stroke-width:1.2; opacity:.9}
+.p-body{fill:var(--pink-deep)}
+
+/* counter */
+.counter{display:flex; align-items:center; gap:14px; padding:22px 20px}
+.mascot-wrap{position:relative; flex:none}
+.mascot{display:block; width:112px; height:112px; background:none; border:0; padding:0; cursor:pointer; border-radius:24px}
+.mascot svg{width:100%; height:100%; display:block; overflow:visible}
+.empty .mascot{cursor:default; width:88px; height:88px}
+.say{position:absolute; left:20px; top:-15px; z-index:2; background:var(--card); border:2px solid var(--line); border-radius:16px; padding:2px 14px; font-size:13.5px; font-family:var(--font-display); font-weight:700; max-width:calc(100% - 40px)}
+.pop-heart{position:absolute; left:50%; bottom:55%; color:var(--pink-deep); font-size:22px; line-height:1; pointer-events:none; font-family:var(--font-display)}
+.count{min-width:0}
+.eyebrow{font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--ink-soft)}
+.count-row{display:flex; align-items:baseline; gap:6px}
+.count-num{font-family:var(--font-display); font-weight:900; font-size:clamp(64px,22vw,100px); line-height:1.05; color:var(--pink-deep); text-shadow:0 4px 0 var(--pink-wash); font-variant-numeric:tabular-nums}
+.count-unit{font-family:var(--font-display); font-weight:900; font-size:26px}
+.count-cap{font-size:13.5px; color:var(--ink-soft); line-height:1.6}
+
+/* buttons */
+.btn{font-family:var(--font-display); font-weight:700; font-size:15px; background:var(--btn); color:var(--on-btn); border:0; border-radius:999px; padding:11px 22px; min-height:46px; cursor:pointer; box-shadow:0 4px 0 var(--btn-shadow); transition:transform .08s, box-shadow .08s}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--btn-shadow)}
+.btn.ghost{background:transparent; color:var(--ink); border:2px solid var(--line); box-shadow:none; padding:9px 18px}
+.btn.ghost:active{transform:none; background:var(--pink-wash)}
+.link{background:none; border:0; padding:6px 2px; min-height:36px; color:var(--ink-soft); font-size:13.5px; text-decoration:underline; text-underline-offset:3px; cursor:pointer}
+.row{display:flex; flex-wrap:wrap; align-items:center; gap:10px}
+.row.between{justify-content:space-between}
+.mini{background:var(--card); border:2px solid var(--line); border-radius:999px; padding:3px 14px; min-height:34px; font-size:13px; cursor:pointer}
+.mini.hot{background:var(--btn); color:var(--on-btn); border-color:var(--btn); font-weight:700}
+
+/* date card */
+.date-card{display:flex; flex-direction:column; gap:10px}
+.date-line{display:flex; flex-wrap:wrap; align-items:center; gap:2px 14px}
+.date-line p{font-size:14px; margin-right:auto}
+.date-form{display:flex; flex-direction:column; gap:8px}
+.date-form label{font-family:var(--font-display); font-weight:700; font-size:14px}
+input[type="date"]{font:inherit; color:var(--ink); background:var(--bg); border:2px solid var(--line); border-radius:16px; padding:9px 14px; min-height:46px; min-width:0; flex:1 1 170px}
+
+/* progress */
+.next{display:flex; flex-direction:column; gap:10px}
+.bar{height:16px; border-radius:999px; background:var(--pink-wash); border:2px solid var(--line); overflow:hidden}
+.bar > i{display:block; height:100%; border-radius:999px; background:var(--pink); min-width:12px}
+.next p{font-size:14px}
+
+/* omikuji slip */
+.section-title{font-size:17px; font-weight:900; display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+.section-title small{font-family:var(--font-body); font-weight:400; font-size:13px; color:var(--ink-soft)}
+.omi{position:relative; background:var(--butter-wash); border:2px solid var(--butter); border-radius:22px; padding:20px 18px 20px 66px; min-height:176px; display:flex; flex-direction:column; justify-content:space-between; gap:14px}
+.omi-tag{position:absolute; left:16px; top:18px; writing-mode:vertical-rl; font-family:var(--font-display); font-weight:700; font-size:14px; letter-spacing:.3em; color:var(--pink-deep)}
+.omi-text{font-family:var(--font-display); font-weight:700; font-size:18px; line-height:1.75; text-wrap:pretty; overflow-wrap:anywhere}
+.omi-foot{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.hanko{width:38px; height:38px; border:2px solid var(--pink-deep); border-radius:50%; display:grid; place-items:center; font-family:var(--font-display); font-weight:900; font-size:19px; color:var(--pink-deep); transform:rotate(-9deg); flex:none}
+.heart{width:44px; height:44px; border-radius:50%; border:2px solid var(--line); background:var(--card); color:var(--pink-deep); display:grid; place-items:center; cursor:pointer; flex:none}
+.heart svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2; stroke-linejoin:round}
+.heart[aria-pressed="true"]{background:var(--pink-wash)}
+.heart[aria-pressed="true"] svg{fill:currentColor}
+.fly{position:absolute; width:30px; height:26px; right:20px; top:-15px; pointer-events:none}
+.fly.f2{right:58px; top:-6px; width:22px; height:19px}
+.m-wing{fill:var(--pink); stroke:var(--mline); stroke-width:1.4}
+.fly.f2 .m-wing{fill:var(--sky)}
+.wl{transform-box:fill-box; transform-origin:100% 50%}
+.wr{transform-box:fill-box; transform-origin:0% 50%}
+
+/* stamp card */
+.grid60{display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); gap:5px; margin-top:12px}
+.cell{aspect-ratio:1; border-radius:9px; border:2px dashed var(--line); display:grid; place-items:center; font-family:var(--font-display); font-weight:700; font-size:11px; line-height:1; color:var(--ink-soft); position:relative; min-width:0}
+.cell.on{border-style:solid; border-color:var(--mint); background:var(--mint-wash); color:var(--ink)}
+.cell.gift{border-color:var(--butter)}
+.cell.gift.on{background:var(--butter-wash); border-color:var(--pink)}
+.cell.gift::after{content:""; position:absolute; top:-5px; right:-5px; width:10px; height:10px; border-radius:50%; background:var(--pink); border:2px solid var(--card)}
+.cell.next{border-style:solid; border-color:var(--pink-deep); color:var(--ink)}
+.legend{margin-top:10px}
+.rewards-title{margin-top:18px; font-size:16px; font-weight:900; scroll-margin-top:84px}
+.rewards{display:flex; flex-direction:column; gap:8px; margin-top:10px}
+.reward{display:flex; align-items:center; gap:10px; border:2px solid var(--line); border-radius:20px; padding:8px 12px 8px 8px; background:var(--card); min-width:0}
+.rd{flex:none; width:48px; height:48px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1.05; font-family:var(--font-display); background:var(--bg); border:2px dashed var(--line)}
+.rd b{font-size:17px; font-weight:900}
+.rd span{font-size:10px; font-weight:700}
+.rt{flex:1; min-width:0; font-size:14px; line-height:1.55}
+.ra{flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:0; font-size:12.5px; color:var(--ink-soft); text-align:right}
+.reward.ready{background:var(--butter-wash); border-color:var(--butter)}
+.reward.ready .rd{background:var(--card); border:2px solid var(--pink)}
+.reward.done .rt{color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--stitch)}
+.reward.done .rd{background:var(--mint-wash); border:2px solid var(--mint)}
+
+.reset-box{background:var(--sky-wash); border:2px solid var(--sky); border-radius:20px; padding:14px 16px; display:flex; flex-direction:column; gap:10px}
+.foot{font-size:12.5px; color:var(--ink-soft); text-align:center; padding-inline:8px}
+
+/* notes: stationery */
+.bunting svg{display:block; width:100%; height:auto}
+.b-string{fill:none; stroke:var(--mline); stroke-width:2; stroke-linecap:round}
+.flag{stroke:var(--mline); stroke-width:1.6; stroke-linejoin:round}
+.fl0{fill:var(--pink)} .fl1{fill:var(--butter)} .fl2{fill:var(--mint)} .fl3{fill:var(--sky)} .fl4{fill:var(--lilac-wash)}
+.env{flex:none; width:96px; height:70px}
+.e-body{fill:var(--mochi); stroke:var(--mline); stroke-width:2.4; stroke-linejoin:round}
+.e-heart{fill:var(--pink); stroke:var(--mline); stroke-width:1.4; stroke-linejoin:round; opacity:0}
+.composer{display:flex; flex-direction:column; gap:14px; position:relative; padding-top:24px}
+.tape{position:absolute; top:-11px; width:84px; height:24px; border-radius:4px; border:1px solid var(--line); pointer-events:none}
+.tape.t1{left:24px; transform:rotate(-6deg); background:repeating-linear-gradient(45deg, var(--butter) 0 7px, var(--butter-wash) 7px 14px)}
+.tape.t2{right:24px; transform:rotate(5deg); background:repeating-linear-gradient(-45deg, var(--mint) 0 7px, var(--mint-wash) 7px 14px)}
+.opt{border:0; padding:0; margin:0; min-width:0}
+.opt legend{font-family:var(--font-display); font-weight:700; font-size:14px; padding:0; margin-bottom:8px}
+.opt-list{display:flex; flex-wrap:wrap; gap:8px}
+.pick{position:relative}
+.pick input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.pick span{display:inline-flex; align-items:center; justify-content:center; min-height:40px; min-width:40px; padding:4px 14px; border-radius:14px; border:2px solid var(--line); font-size:14px; background:var(--card)}
+.pick input:checked + span{border-color:var(--pink-deep); font-weight:700}
+.pick input:focus-visible + span{outline:3px solid var(--focus); outline-offset:2px}
+.pick.st span{padding:2px; width:46px; height:46px; border-radius:50%}
+.pick.st svg{width:34px; height:34px}
+.pick.st input:checked + span{background:var(--pink-wash)}
+
+.paper-dots{background-color:var(--pink-wash); background-image:radial-gradient(var(--stitch) 1.6px, transparent 2.1px); background-size:16px 16px}
+.paper-grid{background-color:var(--mint-wash); background-image:linear-gradient(var(--mint) 1px, transparent 1px), linear-gradient(90deg, var(--mint) 1px, transparent 1px); background-size:20px 20px}
+.paper-stripe{background-color:var(--sky-wash); background-image:repeating-linear-gradient(90deg, transparent 0 11px, var(--sky) 11px 13px)}
+.paper-lines{background-color:var(--butter-wash); background-image:repeating-linear-gradient(180deg, transparent 0 25px, var(--butter) 25px 27px); background-position:0 6px}
+.paper{border:2px solid var(--stitch); border-radius:20px 20px 6px 20px; padding:4px}
+.paper textarea{display:block; width:100%; min-height:140px; resize:vertical; background:transparent; border:0; font:inherit; font-size:16px; line-height:27px; color:var(--ink); padding:8px 12px; border-radius:16px}
+.paper textarea::placeholder{color:var(--ink-soft)}
+.paper textarea:focus-visible{outline-offset:0}
+.starters{display:flex; flex-direction:column; gap:6px}
+.starters p{font-size:13px; color:var(--ink-soft)}
+.starter{border:2px dashed var(--stitch); background:var(--card); border-radius:999px; padding:3px 12px; min-height:36px; font-size:13.5px; cursor:pointer}
+.moods{border:0; padding:0; margin:0; min-width:0}
+.moods legend{font-family:var(--font-display); font-weight:700; font-size:14px; padding:0; margin-bottom:8px}
+.mood-list{display:flex; flex-wrap:wrap; gap:8px}
+.mood{position:relative}
+.mood input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.mood span{display:inline-flex; align-items:center; gap:6px; min-height:40px; padding:6px 14px; border-radius:999px; border:2px solid var(--line); font-size:14px; background:var(--card); white-space:nowrap}
+.mood input:checked + span{border-color:var(--ink-soft); font-weight:700}
+.mood input:focus-visible + span{outline:3px solid var(--focus); outline-offset:2px}
+.mood.m-miss input:checked + span, .m-miss-bg{background:var(--pink-wash)}
+.mood.m-angry input:checked + span, .m-angry-bg{background:var(--butter-wash)}
+.mood.m-sad input:checked + span, .m-sad-bg{background:var(--sky-wash)}
+.mood.m-relief input:checked + span, .m-relief-bg{background:var(--mint-wash)}
+.mood.m-calm input:checked + span, .m-calm-bg{background:var(--lilac-wash)}
+.unsent{font-size:13px; color:var(--ink-soft); display:inline-flex; align-items:center; gap:6px}
+.unsent svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
+
+.note-list{display:flex; flex-direction:column; gap:34px}
+.note{display:flex; flex-direction:column; align-items:flex-end; gap:8px; min-width:0}
+.note-meta{display:flex; flex-wrap:wrap; justify-content:flex-end; align-items:center; gap:6px 8px; font-size:12.5px; color:var(--ink-soft)}
+.sticker{display:inline-flex; align-items:center; gap:4px; border-radius:999px; padding:1px 10px; color:var(--ink); font-size:12.5px; border:2px solid var(--line)}
+.note-wrap{position:relative; max-width:94%; margin-top:8px}
+.note-bubble{border:2px dashed var(--stitch); border-radius:22px 22px 6px 22px; padding:20px 18px 16px; white-space:pre-wrap; overflow-wrap:anywhere; font-size:15.5px; line-height:27px}
+.note:nth-child(odd) .note-bubble{transform:rotate(-.6deg)}
+.note:nth-child(even) .note-bubble{transform:rotate(.6deg)}
+.tape-s{position:absolute; top:-10px; left:50%; width:58px; height:18px; margin-left:-29px; border-radius:3px; border:1px solid var(--line); z-index:1}
+.tp0{background:repeating-linear-gradient(45deg, var(--butter) 0 6px, var(--butter-wash) 6px 12px); transform:rotate(-4deg)}
+.tp1{background:repeating-linear-gradient(-45deg, var(--mint) 0 6px, var(--mint-wash) 6px 12px); transform:rotate(3deg)}
+.tp2{background:repeating-linear-gradient(45deg, var(--sky) 0 6px, var(--sky-wash) 6px 12px); transform:rotate(-2deg)}
+.tp3{background:repeating-linear-gradient(-45deg, var(--pink) 0 6px, var(--pink-wash) 6px 12px); transform:rotate(4deg)}
+.n-sticker{position:absolute; left:-12px; bottom:-18px; width:44px; height:44px; transform:rotate(-12deg); pointer-events:none}
+.n-sticker svg{width:100%; height:100%; display:block; overflow:visible}
+.postmark{position:absolute; left:-6px; top:-34px; width:52px; height:52px; border:2px dashed var(--pink-deep); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1.05; font-family:var(--font-display); font-size:10.5px; font-weight:700; color:var(--pink-deep); background:var(--card); transform:rotate(-12deg); z-index:2}
+.postmark b{font-size:17px; font-weight:900}
+.st-fill{stroke:var(--mline); stroke-width:2.2; stroke-linejoin:round}
+.st-fill.pink{fill:var(--pink)} .st-fill.butter{fill:var(--butter)} .st-fill.sky{fill:var(--sky)} .st-fill.mint{fill:var(--mint)}
+.note-foot{display:flex; flex-wrap:wrap; justify-content:flex-end; align-items:center; gap:4px 12px; font-size:12.5px; color:var(--ink-soft)}
+.del-confirm{display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+.empty{display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; padding:26px 12px}
+
+/* cheer */
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{border:2px solid var(--line); background:var(--card); border-radius:999px; padding:5px 14px; min-height:40px; font-size:14px; cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--pink-wash); border-color:var(--pink); font-weight:700}
+.own{display:flex; flex-direction:column; gap:10px}
+.own-label{font-family:var(--font-display); font-weight:700; font-size:15px}
+.own textarea, .edit-area{display:block; width:100%; min-height:72px; resize:vertical; font:inherit; font-size:15.5px; line-height:1.65; color:var(--ink); background:var(--bg); border:2px solid var(--line); border-radius:16px; padding:9px 12px; min-width:0}
+.quote-group{display:flex; flex-direction:column; gap:8px}
+.quote-group h3{font-size:15px; font-weight:700; color:var(--pink-deep)}
+.quote-row{display:flex; align-items:center; gap:10px; background:var(--card); border:2px solid var(--line); border-radius:20px; padding:10px 10px 10px 16px}
+.quote-row p{flex:1; min-width:0; font-size:14.5px; line-height:1.7; overflow-wrap:anywhere}
+.quote-row.custom{flex-wrap:wrap; padding:12px 12px 10px 16px}
+.quote-row.custom .qtext{flex:1 1 100%}
+.qa{display:flex; align-items:center; gap:8px; margin-left:auto; flex-wrap:wrap; justify-content:flex-end}
+.qa .heart{width:40px; height:40px}
+
+/* tab bar */
+.tabbar{position:fixed; left:0; right:0; bottom:0; z-index:10; background:var(--card); border-top:2px solid var(--line); padding:8px 16px calc(10px + env(safe-area-inset-bottom, 0px))}
+.tabbar-in{max-width:520px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+.tab{display:flex; flex-direction:column; align-items:center; gap:2px; border:0; background:transparent; border-radius:18px; padding:6px 4px; min-height:56px; color:var(--ink-soft); font-family:var(--font-display); font-weight:700; font-size:12.5px; cursor:pointer}
+.tab svg{width:25px; height:25px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.tab[aria-selected="true"]{background:var(--pink-wash); color:var(--ink)}
+.tab[aria-selected="true"] svg{stroke:var(--pink-deep)}
+
+/* sheet */
+.sheet{position:fixed; inset:0; z-index:30; background:var(--scrim); display:flex; align-items:flex-end; justify-content:center; padding-inline:12px}
+.sheet-card{width:100%; max-width:520px; max-height:100%; overflow:auto; background:var(--card); border:2px solid var(--line); border-bottom:0; border-radius:28px 28px 0 0; padding:22px 20px calc(22px + env(safe-area-inset-bottom, 0px)); display:flex; flex-direction:column; gap:14px; align-items:center; text-align:center}
+.sheet-card h2{font-size:21px; font-weight:900}
+.breath{height:176px; width:176px; display:grid; place-items:center; position:relative; max-width:100%}
+.orb{position:absolute; inset:14px; border-radius:50%; background:radial-gradient(circle at 35% 30%, var(--pink-wash), var(--pink)); border:2px solid var(--stitch); transform:scale(.62)}
+.breath p{position:relative; font-family:var(--font-display); font-weight:900; font-size:19px; color:var(--ink)}
+.timer{font-family:var(--font-display); font-weight:900; font-size:30px; font-variant-numeric:tabular-nums}
+.tips{display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
+.tips span{background:var(--mint-wash); border-radius:999px; padding:3px 14px; font-size:13.5px}
+
+.toast{position:fixed; left:50%; transform:translateX(-50%); bottom:calc(92px + env(safe-area-inset-bottom, 0px)); z-index:40; background:var(--ink); color:var(--bg); border-radius:999px; padding:9px 18px; font-size:14px; max-width:calc(100% - 32px); text-align:center}
+
+/* frog + shared svg parts */
+.f-body{fill:var(--frog); stroke:var(--mline); stroke-width:2.6; stroke-linejoin:round}
+.f-belly{fill:var(--frog-belly)}
+.f-eye{fill:var(--mochi); stroke:var(--mline); stroke-width:2}
+.f-hi{fill:var(--mochi)}
+.f-tongue{fill:var(--pink-deep)}
+.m-line{fill:none; stroke:var(--mline); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round}
+.m-cheek{fill:var(--pink); opacity:.6}
+.m-dot{fill:var(--mline)}
+.m-tear{fill:var(--sky); stroke:var(--mline); stroke-width:1.6; stroke-linejoin:round}
+.m-open{fill:var(--pink); stroke:var(--mline); stroke-width:2.4; stroke-linejoin:round}
+.m-spark{fill:var(--butter); stroke:var(--mline); stroke-width:1.6; stroke-linejoin:round}
+.m-petal{fill:var(--pink); stroke:var(--mline); stroke-width:1.6}
+
+@media (prefers-reduced-motion:no-preference){
+  /* frog */
+  .mascot svg{transform-origin:50% 100%; animation:idle 5.5s ease-in-out infinite}
+  @keyframes idle{
+    0%,58%,100%{transform:translateY(0) scale(1,1)}
+    62%{transform:translateY(0) scale(1.05,.93)}
+    70%{transform:translateY(-14px) scale(.97,1.05)}
+    78%{transform:translateY(0) scale(1.05,.93)}
+    84%{transform:translateY(0) scale(1,1)}
+  }
+  .empty .mascot svg{animation:none}
+  .mascot.hop svg{animation:hop .6s ease-out 1}
+  @keyframes hop{0%{transform:translateY(0) scale(1.06,.9)}40%{transform:translateY(-24px) scale(.95,1.08)}75%{transform:translateY(0) scale(1.08,.9)}100%{transform:translateY(0) scale(1,1)}}
+  .m-blink{transform-box:fill-box; transform-origin:center; animation:blink 4.2s infinite}
+  @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+  .tw{transform-box:fill-box; transform-origin:center; animation:tw 1.8s ease-in-out infinite}
+  .tw.d2{animation-delay:.6s}
+  .tw.d3{animation-delay:1.2s}
+  @keyframes tw{0%,100%{transform:scale(.55); opacity:.6}50%{transform:scale(1.15); opacity:1}}
+  .pop-heart{animation:rise 1.3s ease-out forwards}
+  @keyframes rise{from{transform:translate(var(--dx),0) scale(.6); opacity:1}to{transform:translate(var(--dx),-72px) scale(1.2); opacity:0}}
+
+  /* pond */
+  .wave-a{animation:wvr 4s linear infinite}
+  .wave-b{animation:wvl 6s linear infinite}
+  @keyframes wvr{from{transform:translateX(0)}to{transform:translateX(40px)}}
+  @keyframes wvl{from{transform:translateX(0)}to{transform:translateX(-40px)}}
+  .pad{transform-box:fill-box; transform-origin:center; animation:padbob 3.6s ease-in-out infinite alternate}
+  .pd2{animation-delay:-1.2s; animation-duration:4.2s}
+  .pd3{animation-delay:-2.2s; animation-duration:3.1s}
+  @keyframes padbob{from{transform:translateY(-2px) rotate(-1.5deg)}to{transform:translateY(3px) rotate(1.5deg)}}
+  .reed{transform-box:fill-box; transform-origin:50% 100%; animation:sway 3.6s ease-in-out infinite alternate}
+  .reed.r2{animation-delay:-1.4s}
+  .reed.r3{animation-delay:-2.4s; animation-duration:4.4s}
+  @keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+  .dfly{animation:dfly 18s linear -5s infinite}
+  @keyframes dfly{from{transform:translate(-40px,26px)}to{transform:translate(520px,26px)}}
+  .df-in{animation:dfbob 1.4s ease-in-out infinite alternate}
+  @keyframes dfbob{from{transform:translateY(-7px)}to{transform:translateY(7px)}}
+  .df-wings{transform-box:fill-box; transform-origin:center; animation:flap .16s ease-in-out infinite alternate}
+  @keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.35)}}
+  .p-bub{transform-box:fill-box; transform-origin:center; animation:bub 4.5s ease-in infinite}
+  .p-bub.b2{animation-delay:-1.5s}
+  .p-bub.b3{animation-delay:-3s}
+  @keyframes bub{0%{transform:translateY(0); opacity:0}20%{opacity:.9}100%{transform:translateY(-46px); opacity:0}}
+
+  /* butterflies, envelope, header flower, bunting */
+  .fly{animation:drift 6s ease-in-out infinite alternate}
+  .fly.f2{animation-duration:7.5s; animation-delay:-2s}
+  @keyframes drift{from{transform:translate(-22px,6px) rotate(-8deg)}to{transform:translate(8px,-5px) rotate(7deg)}}
+  .wl,.wr{animation:wflap .32s ease-in-out infinite alternate}
+  @keyframes wflap{from{transform:scaleX(1)}to{transform:scaleX(.3)}}
+  .env-body{animation:envbob 3s ease-in-out infinite alternate; transform-box:fill-box; transform-origin:center}
+  @keyframes envbob{from{transform:translateY(1px) rotate(-2deg)}to{transform:translateY(-3px) rotate(2deg)}}
+  .e-heart{transform-box:fill-box; transform-origin:center; animation:heartup 3s ease-out infinite}
+  .e-heart.h2{animation-delay:1s}
+  .e-heart.h3{animation-delay:2s}
+  @keyframes heartup{0%{transform:translateY(8px) scale(.5); opacity:0}25%{opacity:1}100%{transform:translateY(-20px) scale(1.1); opacity:0}}
+  .spin{transform-box:fill-box; transform-origin:center; animation:spin 18s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .flag{transform-box:fill-box; transform-origin:50% 0; animation:swing 3s ease-in-out infinite alternate}
+  @keyframes swing{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+  .n-sticker svg{animation:stbob 2.6s ease-in-out infinite alternate}
+  @keyframes stbob{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-4px) rotate(4deg)}}
+  .note.fresh .note-bubble{animation:drop .7s cubic-bezier(.2,.9,.3,1.2)}
+  @keyframes drop{from{opacity:0; transform:translateY(-26px) rotate(-7deg) scale(.88)}to{opacity:1}}
+
+  /* stamps and rewards */
+  .cell.next{animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--pink)}50%{box-shadow:0 0 0 4px transparent}}
+  .reward.ready .rd{animation:wig 1.6s ease-in-out infinite}
+  @keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+
+  /* cards */
+  .omi.shake{animation:shake .45s ease}
+  @keyframes shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-2.5deg)}40%{transform:rotate(2.5deg)}60%{transform:rotate(-1.5deg)}80%{transform:rotate(1.5deg)}}
+  .omi.pop .omi-text{animation:pop .35s ease}
+  @keyframes pop{from{opacity:0; transform:scale(.94)}to{opacity:1; transform:scale(1)}}
+  .orb{animation:breathe 12s ease-in-out infinite}
+  @keyframes breathe{0%{transform:scale(.62)}33%{transform:scale(1)}50%{transform:scale(1)}100%{transform:scale(.62)}}
+}
+</style>
+
+<div class="app">
+  <header class="top">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+      <g transform="translate(15 15)"><g class="spin">
+        <ellipse cx="0" cy="-8" rx="4.4" ry="7" class="m-petal"/>
+        <ellipse cx="0" cy="-8" rx="4.4" ry="7" class="m-petal" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-8" rx="4.4" ry="7" class="m-petal" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-8" rx="4.4" ry="7" class="m-petal" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-8" rx="4.4" ry="7" class="m-petal" transform="rotate(288)"/>
+        <circle r="3.2" class="m-spark"/>
+      </g></g>
+    </svg>
+    <h1 class="brand">忘れ草</h1>
+    <button type="button" class="btn urge-btn" id="urgeOpen">好想傳訊息給他</button>
+  </header>
+
+  <main>
+  <!-- 今天 -->
+  <section id="panel-home" class="panel" role="tabpanel" aria-labelledby="tab-home">
+    <div class="pond" aria-hidden="true">
+      <svg viewBox="0 0 480 96" preserveAspectRatio="xMidYMid slice">
+        <rect class="p-deep" x="0" y="52" width="480" height="44"/>
+        <path class="p-wave wave-a" id="waveA" d=""/>
+        <path class="p-wave wave-b" id="waveB" d="" style="opacity:.7"/>
+        <g transform="translate(26 0)"><g class="reed"><path class="p-reed" d="M0 96 V36"/><ellipse class="p-cat" cx="0" cy="30" rx="4.2" ry="10"/></g></g>
+        <g transform="translate(44 0)"><g class="reed r2"><path class="p-reed" d="M0 96 V48"/><ellipse class="p-cat" cx="0" cy="42" rx="4" ry="9"/></g></g>
+        <g transform="translate(452 0)"><g class="reed r3"><path class="p-reed" d="M0 96 V40"/><ellipse class="p-cat" cx="0" cy="34" rx="4.2" ry="10"/></g></g>
+        <g class="pad pd1">
+          <ellipse class="p-pad" cx="120" cy="69" rx="28" ry="8"/>
+          <g transform="translate(120 62)">
+            <ellipse class="f-body" cx="0" cy="0" rx="11" ry="7.5"/>
+            <circle class="f-body" cx="-6" cy="-6" r="4.6"/><circle class="f-body" cx="6" cy="-6" r="4.6"/>
+            <circle class="f-eye" cx="-6" cy="-6" r="2.7"/><circle class="f-eye" cx="6" cy="-6" r="2.7"/>
+            <circle class="m-dot" cx="-6" cy="-5.6" r="1.2"/><circle class="m-dot" cx="6" cy="-5.6" r="1.2"/>
+            <path class="m-line" d="M-4 1.5 q4 3 8 0" style="stroke-width:1.6"/>
+          </g>
+        </g>
+        <g class="pad pd2">
+          <ellipse class="p-pad" cx="300" cy="74" rx="32" ry="9"/>
+          <g transform="translate(300 67)">
+            <ellipse class="p-lot" cx="0" cy="-7" rx="4" ry="8"/>
+            <ellipse class="p-lot" cx="-6" cy="-4" rx="4" ry="7" transform="rotate(-38 -6 -4)"/>
+            <ellipse class="p-lot" cx="6" cy="-4" rx="4" ry="7" transform="rotate(38 6 -4)"/>
+          </g>
+        </g>
+        <g class="pad pd3"><ellipse class="p-pad" cx="392" cy="66" rx="20" ry="6"/></g>
+        <circle class="p-bub" cx="200" cy="88" r="3"/>
+        <circle class="p-bub b2" cx="214" cy="90" r="2"/>
+        <circle class="p-bub b3" cx="350" cy="90" r="3"/>
+        <g class="dfly"><g class="df-in">
+          <rect class="p-body" x="-13" y="-1.5" width="24" height="3" rx="1.5"/>
+          <circle class="p-body" cx="12" cy="0" r="3.2"/>
+          <g class="df-wings">
+            <ellipse class="p-wing" cx="-2" cy="-5" rx="9" ry="3" transform="rotate(-12 -2 -5)"/>
+            <ellipse class="p-wing" cx="4" cy="5" rx="9" ry="3" transform="rotate(12 4 5)"/>
+          </g>
+        </g></g>
+      </svg>
+    </div>
+
+    <div class="card stitch counter">
+      <span class="say" id="say" role="status" hidden></span>
+      <div class="mascot-wrap" id="mascotWrap">
+        <button type="button" class="mascot" id="mascot" aria-label="摸摸小青蛙"></button>
+      </div>
+      <div class="count">
+        <p class="eyebrow" id="eyebrow">沒有聯絡已經</p>
+        <p class="count-row"><span class="count-num" id="countNum">0</span><span class="count-unit">天</span></p>
+        <p class="count-cap" id="countCap"></p>
+      </div>
+    </div>
+
+    <div class="card date-card">
+      <div class="date-line" id="dateLine" hidden>
+        <p id="sinceText"></p>
+        <button type="button" class="link" id="editDate">改日期</button>
+        <button type="button" class="link" id="resetOpen">我破功了</button>
+      </div>
+      <div class="date-form" id="dateForm">
+        <label for="startInput" id="dateLabel">最後一次聯絡是哪一天？</label>
+        <div class="row">
+          <input type="date" id="startInput">
+          <button type="button" class="btn" id="startBtn">開始計算</button>
+        </div>
+        <p class="soft" id="dateHint">選好日期，上面的天數會馬上跟著變。</p>
+      </div>
+    </div>
+
+    <div class="reset-box" id="resetBox" hidden>
+      <p><b>沒關係，這不是失敗。</b>想重新從今天開始數嗎？印章和獎勵會重新集，你的最長紀錄會留著。</p>
+      <div class="row">
+        <button type="button" class="btn" id="resetYes">從今天重新開始</button>
+        <button type="button" class="btn ghost" id="resetNo">先不要</button>
+      </div>
+    </div>
+
+    <div class="card next" id="nextCard">
+      <div class="section-title"><span>下一個獎勵</span><small id="bestText"></small></div>
+      <div class="bar" role="progressbar" aria-label="距離下一個獎勵" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="barFill" style="width:0%"></i></div>
+      <p id="nextText"></p>
+      <button type="button" class="mini hot" id="readyBtn" hidden style="align-self:flex-start"></button>
+    </div>
+
+    <div class="omi" id="homeOmi">
+      <svg class="fly" viewBox="0 0 28 24" aria-hidden="true"><g class="wl"><ellipse cx="9" cy="9" rx="8" ry="6.5" class="m-wing"/><ellipse cx="10" cy="17" rx="5.5" ry="4.5" class="m-wing"/></g><g class="wr"><ellipse cx="19" cy="9" rx="8" ry="6.5" class="m-wing"/><ellipse cx="18" cy="17" rx="5.5" ry="4.5" class="m-wing"/></g><rect x="13" y="5" width="2" height="15" rx="1" class="m-dot"/></svg>
+      <span class="omi-tag">今日の一句</span>
+      <p class="omi-text" id="homeQuote"></p>
+      <div class="omi-foot">
+        <button type="button" class="link" id="goCheer">去抽一張</button>
+        <span class="hanko" aria-hidden="true">忘</span>
+      </div>
+    </div>
+
+    <div class="card" id="stampCard">
+      <div class="section-title"><span>集章卡</span><small id="stampCount"></small></div>
+      <div class="grid60" id="grid" role="img" aria-label="六十天集章卡"></div>
+      <p class="soft legend">粉紅小點的格子是獎勵日，閃著邊框的是下一格。</p>
+      <h3 class="rewards-title" id="rewardsTitle">集滿就可以</h3>
+      <div class="rewards" id="rewards"></div>
+    </div>
+  </section>
+
+  <!-- 小紙條 -->
+  <section id="panel-notes" class="panel" role="tabpanel" aria-labelledby="tab-notes" hidden>
+    <div class="bunting" aria-hidden="true"><svg id="bunting" viewBox="0 0 480 64"></svg></div>
+    <div class="hd-row">
+      <div class="hd">
+        <h2>未寄出的短訊</h2>
+        <p class="soft">寫給他的話，不會送出，只留給自己。</p>
+      </div>
+      <svg class="env" viewBox="0 0 96 70" aria-hidden="true">
+        <g class="env-body">
+          <rect class="e-body" x="14" y="28" width="68" height="38" rx="9"/>
+          <path class="m-line" d="M17 33 L48 54 L79 33"/>
+        </g>
+        <g transform="translate(34 24)"><path class="e-heart h1" d="M0 4 C-7 -2 -4 -8 0 -5 C4 -8 7 -2 0 4Z"/></g>
+        <g transform="translate(50 20)"><path class="e-heart h2" d="M0 4 C-7 -2 -4 -8 0 -5 C4 -8 7 -2 0 4Z"/></g>
+        <g transform="translate(65 24)"><path class="e-heart h3" d="M0 4 C-7 -2 -4 -8 0 -5 C4 -8 7 -2 0 4Z"/></g>
+      </svg>
+    </div>
+    <form class="card composer" id="noteForm">
+      <span class="tape t1" aria-hidden="true"></span><span class="tape t2" aria-hidden="true"></span>
+      <fieldset class="opt">
+        <legend>挑一張信紙</legend>
+        <div class="opt-list" id="paperList"></div>
+      </fieldset>
+      <label class="sr" for="noteText">寫給他的短訊</label>
+      <div class="paper paper-dots" id="paper">
+        <textarea id="noteText" maxlength="2000" placeholder="想對他說什麼？盡量寫，這些字不會被送出。"></textarea>
+      </div>
+      <div class="starters">
+        <p>不知道怎麼開始？點一句接著寫：</p>
+        <div class="opt-list" id="starterList"></div>
+      </div>
+      <fieldset class="moods">
+        <legend>現在的心情</legend>
+        <div class="mood-list" id="moodList"></div>
+      </fieldset>
+      <fieldset class="opt">
+        <legend>貼一張貼紙</legend>
+        <div class="opt-list" id="stickerList"></div>
+      </fieldset>
+      <div class="row between">
+        <span class="unsent"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>未送出 · 只留給自己</span>
+        <button type="submit" class="btn">收進信箱</button>
+      </div>
+    </form>
+    <div class="section-title"><span>信箱</span><small id="noteCount"></small></div>
+    <div class="note-list" id="noteList"></div>
+  </section>
+
+  <!-- 鼓勵 -->
+  <section id="panel-cheer" class="panel" role="tabpanel" aria-labelledby="tab-cheer" hidden>
+    <div class="hd">
+      <h2>給自己的話</h2>
+      <p class="soft">輕輕抽一張，今天需要哪一句就留哪一句。也可以寫自己的。</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="想看哪一種"></div>
+    <div class="omi" id="drawOmi">
+      <svg class="fly" viewBox="0 0 28 24" aria-hidden="true"><g class="wl"><ellipse cx="9" cy="9" rx="8" ry="6.5" class="m-wing"/><ellipse cx="10" cy="17" rx="5.5" ry="4.5" class="m-wing"/></g><g class="wr"><ellipse cx="19" cy="9" rx="8" ry="6.5" class="m-wing"/><ellipse cx="18" cy="17" rx="5.5" ry="4.5" class="m-wing"/></g><rect x="13" y="5" width="2" height="15" rx="1" class="m-dot"/></svg>
+      <svg class="fly f2" viewBox="0 0 28 24" aria-hidden="true"><g class="wl"><ellipse cx="9" cy="9" rx="8" ry="6.5" class="m-wing"/><ellipse cx="10" cy="17" rx="5.5" ry="4.5" class="m-wing"/></g><g class="wr"><ellipse cx="19" cy="9" rx="8" ry="6.5" class="m-wing"/><ellipse cx="18" cy="17" rx="5.5" ry="4.5" class="m-wing"/></g><rect x="13" y="5" width="2" height="15" rx="1" class="m-dot"/></svg>
+      <span class="omi-tag" id="drawTag"></span>
+      <p class="omi-text" id="drawText"></p>
+      <div class="omi-foot">
+        <button type="button" class="heart" id="drawHeart" aria-pressed="false" aria-label="收藏這一句"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg></button>
+        <span class="hanko" aria-hidden="true">忘</span>
+      </div>
+    </div>
+    <button type="button" class="btn" id="drawBtn">再抽一張</button>
+
+    <form class="card own" id="ownForm">
+      <label class="own-label" for="ownText">寫一句給自己</label>
+      <textarea id="ownText" maxlength="140" rows="2" placeholder="想對自己說的話，寫在這裡。抽卡的時候也會抽到它。"></textarea>
+      <div class="row between">
+        <span class="soft" id="ownCount">0 / 140</span>
+        <button type="submit" class="btn">加進我的句子</button>
+      </div>
+    </form>
+
+    <div class="quote-group" id="favBox" hidden>
+      <h3>我收藏的</h3>
+      <div class="quote-group" id="favList"></div>
+    </div>
+    <div class="quote-group" id="customBox" hidden>
+      <h3>我自己的話</h3>
+      <div class="quote-group" id="customList"></div>
+    </div>
+    <div class="quote-group" id="allList"></div>
+  </section>
+  </main>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<nav class="tabbar" aria-label="主要分頁">
+  <div class="tabbar-in" role="tablist">
+    <button type="button" class="tab" role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true" data-tab="home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="4"/><path d="M8 3v4M16 3v4"/><path d="M12 17.4s-3.2-2-3.2-4.1a1.8 1.8 0 0 1 3.2-1.1 1.8 1.8 0 0 1 3.2 1.1c0 2.1-3.2 4.1-3.2 4.1z"/></svg>今天
+    </button>
+    <button type="button" class="tab" role="tab" id="tab-notes" aria-controls="panel-notes" aria-selected="false" data-tab="notes">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3.5"/><path d="M4 8l8 6 8-6"/></svg>小紙條
+    </button>
+    <button type="button" class="tab" role="tab" id="tab-cheer" aria-controls="panel-cheer" aria-selected="false" data-tab="cheer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.2 6.3L20.5 12l-6.3 2.7L12 21l-2.2-6.3L3.5 12l6.3-2.7z"/></svg>鼓勵
+    </button>
+  </div>
+</nav>
+
+<div class="sheet" id="urge" role="dialog" aria-modal="true" aria-labelledby="urgeTitle" hidden>
+  <div class="sheet-card">
+    <h2 id="urgeTitle">先停十分鐘</h2>
+    <p class="soft">想聯絡的衝動像浪，會升高，也會退下去。跟著圓圈呼吸就好。</p>
+    <div class="breath"><div class="orb"></div><p id="breathText">吸氣</p></div>
+    <p class="timer" id="urgeTimer" aria-live="off">10:00</p>
+    <div class="tips"><span>喝一杯水</span><span>站起來走走</span><span>把想說的寫下來</span></div>
+    <div class="row" style="justify-content:center">
+      <button type="button" class="btn" id="urgeWrite">寫成小紙條</button>
+      <button type="button" class="btn ghost" id="urgeClose">我好一點了</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+var $ = function(s, r){ return (r || document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+/* ---------- dates ---------- */
+function pad(n){ return String(n).padStart(2, "0"); }
+function todayStr(){ var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+function dayNum(s){ var p = s.split("-").map(Number); return Date.UTC(p[0], p[1] - 1, p[2]) / 86400000; }
+function daysSince(s){ return Math.max(0, Math.round(dayNum(todayStr()) - dayNum(s))); }
+function fmtLong(s){ var p = s.split("-").map(Number); return p[0] + "年" + p[1] + "月" + p[2] + "日"; }
+function fmtStamp(ts){ var d = new Date(ts); return (d.getMonth() + 1) + "月" + d.getDate() + "日 " + pad(d.getHours()) + ":" + pad(d.getMinutes()); }
+function validDate(s){ return typeof s === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s); }
+
+/* ---------- content ---------- */
+var REWARDS = [
+  { d: 1,  t: "泡一杯喜歡的熱飲，慢慢喝完" },
+  { d: 3,  t: "看一集喜歡的劇" },
+  { d: 5,  t: "吃一球喜歡的雪糕" },
+  { d: 7,  t: "吃一份甜點，蛋糕或班戟都好" },
+  { d: 10, t: "去喝一杯珍珠奶茶" },
+  { d: 14, t: "約朋友吃一頓好吃的" },
+  { d: 18, t: "買一束花送給自己" },
+  { d: 21, t: "去看一場電影" },
+  { d: 25, t: "買一本書或一個可愛的小文具" },
+  { d: 30, t: "去按摩，或泡一次溫泉" },
+  { d: 40, t: "剪一個新髮型，或買一件新衣服" },
+  { d: 50, t: "來一趟一日小旅行，去海邊或山上" },
+  { d: 60, t: "買一份真心想要的禮物，再吃一頓大餐" }
+];
+var GIFT = {}; REWARDS.forEach(function(r){ GIFT[r.d] = 1; });
+
+var MOODS = [
+  { k: "miss",   label: "想念", face: "(´・ω・`)" },
+  { k: "angry",  label: "生氣", face: "(｀ε´)" },
+  { k: "sad",    label: "難過", face: "(；ω；)" },
+  { k: "relief", label: "釋懷", face: "(´▽`)" },
+  { k: "calm",   label: "平靜", face: "(－ω－)" }
+];
+var PAPERS = [
+  { k: "dots",   label: "點點" },
+  { k: "grid",   label: "格紋" },
+  { k: "stripe", label: "條紋" },
+  { k: "lines",  label: "橫線" }
+];
+var STICKERS = [
+  { k: "none",   label: "不貼" },
+  { k: "heart",  label: "愛心" },
+  { k: "star",   label: "星星" },
+  { k: "flower", label: "小花" },
+  { k: "cloud",  label: "雲朵" },
+  { k: "moon",   label: "月亮" },
+  { k: "frog",   label: "青蛙" }
+];
+var STARTERS = ["我想跟你說，", "其實我很想你，", "我現在覺得，", "我還是有點生氣，", "謝謝你曾經", "今天我做到了，"];
+
+var CATS = [
+  { name: "想他的時候", items: [
+    "想念是真的，但不代表要回去。兩件事可以同時存在。",
+    "今天想他一下就好，然後去喝杯熱的。",
+    "想起他的時候，先深呼吸三次，再決定要不要寫下來。",
+    "回憶會自己慢慢變淡，你只需要照顧好今天。",
+    "你不是在忘記一個人，是在重新認識沒有他的生活。",
+    "心還會痛，代表你認真愛過，也代表你正在康復。",
+    "他的歌、他的口頭禪，遇到的時候允許自己難過一下，然後繼續走。",
+    "想念不用被消滅，它只是會一天比一天安靜。",
+    "你懷念的是那段時光，不一定是現在的他。",
+    "今天想他幾次都可以，但想完之後，請對自己好一點。"
+  ]},
+  { name: "想傳訊息的時候", items: [
+    "現在想傳的訊息，先寫進小紙條。明天再看，還想傳再說。",
+    "手指停一停。十分鐘後，你會感謝現在忍住的自己。",
+    "傳出去只換到一秒的安心，之後要花更久的力氣收拾。",
+    "你想聽到的那句話，他現在未必說得出口。",
+    "不回覆也是一種選擇，而且是對自己好的選擇。",
+    "先喝水，再去洗手，回來之後衝動會小一點。",
+    "寫下來是釋放，傳出去是重來一次。你選的是前者。",
+    "你現在傳的字，三天後的你會逐字重讀。想像那個畫面再決定。",
+    "每一次沒有按下傳送，你的心就更穩一點。",
+    "不用向他證明你過得好，只要真的過得好就夠了。"
+  ]},
+  { name: "孤單的夜晚", items: [
+    "夜晚會把感覺放大，早上的你會比現在輕鬆一點。",
+    "今晚不用解決所有事，把燈關好，好好睡就夠了。",
+    "打給一個真正疼你的朋友，聲音比文字更有溫度。",
+    "洗個熱水澡，換上乾淨的睡衣，今天已經做得很夠了。",
+    "孤單不等於缺少什麼，你一個人也是完整的。",
+    "把今天撐過來的自己，抱一下。",
+    "把手機放到床的另一邊，今晚只陪自己。",
+    "數數今天做到了什麼：起床、吃飯、撐過來，這些都算。",
+    "窗外還有很多人也沒睡，你不是唯一一個在想事情的。",
+    "給自己泡杯熱飲，慢慢喝完，今天就可以結束了。"
+  ]},
+  { name: "給自己", items: [
+    "每一個沒有聯絡的日子，都是你送給自己的禮物。",
+    "你值得被好好對待，先從你對自己開始。",
+    "慢慢來，沒有人規定要幾天才能好起來。",
+    "破功了也不用自責，明天可以重新開始。",
+    "你比自己以為的更有力量。",
+    "把留給他的溫柔，這陣子先留給自己。",
+    "你正在做一件很難的事，而且已經做了好幾天了。",
+    "好好吃飯，好好睡覺，也是在愛自己。",
+    "你不需要一次原諒所有事，今天原諒一小塊就好。",
+    "往前一小步也是往前，不必用跑的。"
+  ]},
+  { name: "往前走的時候", items: [
+    "你開始有一整天沒想起他了，這就是好起來的樣子。",
+    "把以前留給他的時間，拿去做一件你一直想做的事吧。",
+    "你變得更會照顧自己了，這份力量會一直跟著你。",
+    "有一天你會笑著提起這段日子，現在只是還沒走到那裡。",
+    "今天的你，比一個月前的你更懂得自己要什麼。",
+    "新的日子需要新的習慣，從一個小小的開始。",
+    "你不是回到原點，你是帶著學到的東西走向下一站。",
+    "好好打扮，不是為了給誰看，是因為你喜歡鏡子裡的自己。",
+    "放下不是一個瞬間，是很多個普通日子慢慢堆起來的。",
+    "你的世界很大，他只是其中一章。"
+  ]}
+];
+var OWN = CATS.length;
+var CAT_NAMES = CATS.map(function(c){ return c.name; }).concat(["我自己的話"]);
+var ALL = [];
+CATS.forEach(function(c, ci){ c.items.forEach(function(t, i){ ALL.push({ id: ci + "-" + i, cat: ci, text: t }); }); });
+function toQuote(c){ return { id: c.id, cat: OWN, text: c.text, custom: true }; }
+function allQuotes(){ return ALL.concat(S.custom.map(toQuote)); }
+function quoteById(id){
+  for (var i = 0; i < ALL.length; i++){ if (ALL[i].id === id) return ALL[i]; }
+  for (var j = 0; j < S.custom.length; j++){ if (S.custom[j].id === id) return toQuote(S.custom[j]); }
+  return null;
+}
+function dailyQuote(){ return ALL[Math.floor(dayNum(todayStr())) % ALL.length]; }
+
+var SAYS = [
+  ["呱……我陪你。", "今天先慢慢來，呱。", "抱抱，呱。"],
+  ["呱！又過了一天。", "你很棒，呱。", "喝口水吧，呱。"],
+  ["呱呱，心情有好一點嗎？", "你已經走了很遠，呱。"],
+  ["呱呱呱！好開心！", "今天也有好好照顧自己，呱。"],
+  ["呱～～我超級為你驕傲！", "一起跳一下！呱呱！"]
+];
+
+/* ---------- state + storage ---------- */
+var LS_KEY = "wasurekusa:v1";
+var S = { start: null, best: 0, resets: 0, favs: [], redeemed: [], custom: [], notes: [] };
+var backend = "local";
+var profileRef = null, notesCol = null;
+var chain = Promise.resolve();
+var migrated = false;
+
+function cleanList(a, test){ return Array.isArray(a) ? a.filter(test) : []; }
+function isStr(x){ return typeof x === "string"; }
+function isInt(x){ return typeof x === "number" && isFinite(x); }
+function isCustom(x){ return !!x && isStr(x.id) && isStr(x.text); }
+function copyCustom(a){ return cleanList(a, isCustom).map(function(c){ return { id: c.id, text: c.text }; }); }
+
+function loadLocal(){
+  try {
+    var raw = localStorage.getItem(LS_KEY);
+    if (!raw) return;
+    var d = JSON.parse(raw);
+    if (validDate(d.start)) S.start = d.start;
+    S.best = +d.best || 0; S.resets = +d.resets || 0;
+    S.favs = cleanList(d.favs, isStr);
+    S.redeemed = cleanList(d.redeemed, isInt);
+    S.custom = copyCustom(d.custom);
+    S.notes = cleanList(d.notes, function(n){ return n && typeof n.text === "string"; });
+  } catch (e) {}
+}
+function saveLocal(){ try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
+function hasLocalData(){ return !!(S.start || S.notes.length || S.favs.length || S.redeemed.length || S.custom.length); }
+
+function onWriteError(){
+  toast("雲端暫時存不了，先放在這個瀏覽器。");
+  backend = "local"; saveLocal(); renderFoot();
+}
+function queue(fn){ chain = chain.then(fn).catch(onWriteError); return chain; }
+
+function saveProfile(){
+  if (backend === "cloud"){
+    var body = {
+      start: S.start, best: S.best, resets: S.resets,
+      favs: S.favs.slice(), redeemed: S.redeemed.slice(),
+      custom: S.custom.map(function(c){ return { id: c.id, text: c.text }; })
+    };
+    queue(function(){ return profileRef.set(body); });
+  } else { saveLocal(); }
+}
+function newId(p){ return (p || "n") + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function addNote(note){
+  if (backend === "cloud"){
+    var ref = notesCol.doc();
+    queue(function(){ return ref.set(note); });
+  } else {
+    var n = { id: newId() }; for (var k in note) n[k] = note[k];
+    S.notes.unshift(n); saveLocal(); renderNotes();
+  }
+}
+function delNote(id){
+  if (backend === "cloud"){
+    queue(function(){ return notesCol.doc(id).delete(); });
+  } else {
+    S.notes = S.notes.filter(function(n){ return n.id !== id; }); saveLocal(); renderNotes();
+  }
+}
+
+function initCloud(){
+  var C = window.claude;
+  if (!C || typeof C.use !== "function") return;
+  Promise.all([C.use("db"), C.use("user")]).then(function(r){
+    var db = r[0], user = r[1];
+    if (!db || !user) return null;
+    return user.id().then(function(id){ return id ? { db: db, id: id } : null; });
+  }).then(function(ctx){
+    if (!ctx) return;
+    profileRef = ctx.db.doc("data/users/" + ctx.id + "/profile");
+    notesCol = profileRef.collection("notes");
+    backend = "cloud";
+    profileRef.onSnapshot(function(snap){
+      if (snap.exists){
+        var d = snap.data() || {};
+        S.start = validDate(d.start) ? d.start : null;
+        S.best = +d.best || 0; S.resets = +d.resets || 0;
+        S.favs = cleanList(d.favs, isStr);
+        S.redeemed = cleanList(d.redeemed, isInt);
+        S.custom = copyCustom(d.custom);
+        migrated = true;
+      } else if (!snap.metadata.fromCache && !migrated){
+        migrated = true;
+        if (hasLocalData()){
+          var oldNotes = S.notes.slice();
+          saveProfile();
+          oldNotes.forEach(function(n){
+            var body = { text: n.text, mood: n.mood || "miss", paper: n.paper || "dots", sticker: n.sticker || "none", ts: n.ts, dayNo: n.dayNo == null ? null : n.dayNo };
+            var ref = notesCol.doc();
+            queue(function(){ return ref.set(body); });
+          });
+          try { localStorage.removeItem(LS_KEY); } catch (e) {}
+        }
+      }
+      renderHome(); renderCheer(); renderFoot();
+    }, function(){ backend = "local"; renderFoot(); });
+    notesCol.orderBy("ts", "desc").limit(500).onSnapshot(function(snap){
+      S.notes = snap.docs.map(function(d){
+        var src = d.data() || {}, o = {};
+        for (var k in src) o[k] = src[k];
+        o.id = d.id;
+        return o;
+      });
+      renderNotes();
+    }, function(){ backend = "local"; renderFoot(); });
+    renderFoot();
+  }).catch(function(){});
+}
+
+/* ---------- frog ---------- */
+function spark(x, y, s, cls){
+  return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><path class="m-spark tw ' + (cls || "") + '" d="M0 -7 L2 -2 L7 0 L2 2 L0 7 L-2 2 L-7 0 L-2 -2Z"/></g>';
+}
+function frog(stage){
+  var s = '<ellipse class="f-body" cx="30" cy="106" rx="15" ry="7.5"/><ellipse class="f-body" cx="90" cy="106" rx="15" ry="7.5"/>' +
+    '<circle class="f-body" cx="37" cy="42" r="18"/><circle class="f-body" cx="83" cy="42" r="18"/>' +
+    '<ellipse class="f-body" cx="60" cy="80" rx="46" ry="32"/>' +
+    '<ellipse class="f-belly" cx="60" cy="90" rx="28" ry="18"/>' +
+    '<ellipse class="m-cheek" cx="22" cy="84" rx="8" ry="5.5"/><ellipse class="m-cheek" cx="98" cy="84" rx="8" ry="5.5"/>' +
+    '<circle class="m-dot" cx="55" cy="68" r="1.5"/><circle class="m-dot" cx="65" cy="68" r="1.5"/>';
+  if (stage === 0){
+    s += '<circle class="f-eye" cx="37" cy="43" r="10.5"/><circle class="f-eye" cx="83" cy="43" r="10.5"/>' +
+      '<g class="m-blink"><circle class="m-dot" cx="39" cy="46" r="4.4"/><circle class="m-dot" cx="81" cy="46" r="4.4"/></g>' +
+      '<path class="m-tear" d="M33 56 q-3.8 6.5 0 9 q3.8 -2.5 0 -9z"/>' +
+      '<path class="m-line" d="M48 88 q12 -9 24 0"/>';
+  } else if (stage === 1){
+    s += '<circle class="f-eye" cx="37" cy="43" r="10.5"/><circle class="f-eye" cx="83" cy="43" r="10.5"/>' +
+      '<g class="m-blink"><circle class="m-dot" cx="37" cy="43" r="4.4"/><circle class="m-dot" cx="83" cy="43" r="4.4"/></g>' +
+      '<path class="m-line" d="M50 80 q10 6 20 0"/>';
+  } else if (stage === 2){
+    s += '<circle class="f-eye" cx="37" cy="43" r="10.5"/><circle class="f-eye" cx="83" cy="43" r="10.5"/>' +
+      '<g class="m-blink"><circle class="m-dot" cx="36" cy="42" r="5"/><circle class="m-dot" cx="84" cy="42" r="5"/>' +
+      '<circle class="f-hi" cx="34.3" cy="40.2" r="1.7"/><circle class="f-hi" cx="82.3" cy="40.2" r="1.7"/></g>' +
+      '<path class="m-line" d="M44 79 q16 14 32 0"/>';
+  } else {
+    s += '<path class="m-line" d="M28 46 q9 -10 18 0"/><path class="m-line" d="M74 46 q9 -10 18 0"/>' +
+      '<path class="m-open" d="M42 77 q18 24 36 0z"/>';
+    if (stage === 4){
+      s += '<path class="f-tongue" d="M51 86 q9 -7 18 0 q-4 4 -9 4 q-5 0 -9 -4z"/>' +
+        spark(12, 22, 1.1) + spark(108, 16, 0.95, "d2") + spark(112, 60, 0.65, "d3") + spark(8, 64, 0.6, "d3") +
+        '<g transform="translate(60 38)"><circle class="m-petal" cx="0" cy="-5" r="3.8"/><circle class="m-petal" cx="4.6" cy="-1.5" r="3.8"/><circle class="m-petal" cx="2.8" cy="3.8" r="3.8"/><circle class="m-petal" cx="-2.8" cy="3.8" r="3.8"/><circle class="m-petal" cx="-4.6" cy="-1.5" r="3.8"/><circle class="m-spark" cx="0" cy="0" r="2.6"/></g>';
+    } else {
+      s += spark(14, 24, 0.9) + spark(106, 20, 0.8, "d2");
+    }
+  }
+  return '<svg viewBox="0 0 120 120" aria-hidden="true">' + s + '</svg>';
+}
+function stageFor(n){ return n < 3 ? 0 : n < 10 ? 1 : n < 21 ? 2 : n < 40 ? 3 : 4; }
+
+/* ---------- stickers + bunting ---------- */
+function stickerSVG(k){
+  var b = "";
+  if (k === "heart") b = '<path class="st-fill pink" d="M20 34 C5 25 4 13 12 10 C16 8 19 10 20 13 C21 10 24 8 28 10 C36 13 35 25 20 34Z"/>';
+  else if (k === "star") b = '<path class="st-fill butter" d="M20 4 L24.6 15 L36 16 L27.4 23.6 L30 35 L20 29 L10 35 L12.6 23.6 L4 16 L15.4 15Z"/>';
+  else if (k === "flower") b = '<g transform="translate(20 20)">' +
+    '<ellipse class="st-fill pink" cx="0" cy="-9" rx="6" ry="9"/><ellipse class="st-fill pink" cx="0" cy="-9" rx="6" ry="9" transform="rotate(72)"/>' +
+    '<ellipse class="st-fill pink" cx="0" cy="-9" rx="6" ry="9" transform="rotate(144)"/><ellipse class="st-fill pink" cx="0" cy="-9" rx="6" ry="9" transform="rotate(216)"/>' +
+    '<ellipse class="st-fill pink" cx="0" cy="-9" rx="6" ry="9" transform="rotate(288)"/><circle class="st-fill butter" r="5"/></g>';
+  else if (k === "cloud") b = '<path class="st-fill sky" d="M11 31 C3 31 3 20 11 20 C11 11 25 10 27 19 C36 18 38 31 29 31Z"/>';
+  else if (k === "moon") b = '<path class="st-fill butter" d="M26 5 C13 7 8 22 16 31 C23 38 34 33 36 26 C26 28 19 17 26 5Z"/>';
+  else if (k === "frog") b = '<ellipse class="f-body" cx="20" cy="26" rx="15" ry="10"/><circle class="f-body" cx="12" cy="15" r="6.5"/><circle class="f-body" cx="28" cy="15" r="6.5"/>' +
+    '<circle class="f-eye" cx="12" cy="15" r="3.6"/><circle class="f-eye" cx="28" cy="15" r="3.6"/><circle class="m-dot" cx="12.5" cy="15.5" r="1.6"/><circle class="m-dot" cx="27.5" cy="15.5" r="1.6"/>' +
+    '<path class="m-line" d="M15 27 q5 4 10 0" style="stroke-width:2"/><ellipse class="m-cheek" cx="7" cy="27" rx="3" ry="2"/><ellipse class="m-cheek" cx="33" cy="27" rx="3" ry="2"/>';
+  return '<svg viewBox="0 0 40 40" aria-hidden="true">' + b + '</svg>';
+}
+function stickerKnown(k){ for (var i = 1; i < STICKERS.length; i++){ if (STICKERS[i].k === k) return true; } return false; }
+function paperKnown(k){ for (var i = 0; i < PAPERS.length; i++){ if (PAPERS[i].k === k) return true; } return false; }
+
+function buildBunting(){
+  var n = 9, parts = '<path class="b-string" d="M-4 6 Q240 40 484 6"/>';
+  for (var i = 0; i < n; i++){
+    var t = (i + 0.5) / n;
+    var x = Math.round(-4 + 488 * t);
+    var y = Math.round((6 + 68 * t * (1 - t)) * 10) / 10;
+    parts += '<g transform="translate(' + x + ' ' + y + ')"><polygon class="flag fl' + (i % 5) + '" points="-17,0 17,0 0,34" style="animation-delay:-' + ((i * 0.55) % 3).toFixed(2) + 's"/></g>';
+  }
+  $("#bunting").innerHTML = parts;
+}
+
+/* ---------- toast / frog talk ---------- */
+var toastTimer = 0;
+function toast(msg){
+  var t = $("#toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.hidden = true; }, 3200);
+}
+var sayTimer = 0;
+function sayLine(msg){
+  var el = $("#say"); el.textContent = msg; el.hidden = false;
+  clearTimeout(sayTimer); sayTimer = setTimeout(function(){ el.hidden = true; }, 2400);
+}
+function burst(n){
+  var wrap = $("#mascotWrap");
+  for (var i = 0; i < n; i++){
+    var h = document.createElement("span"); h.className = "pop-heart"; h.setAttribute("aria-hidden", "true"); h.textContent = "♥";
+    h.style.setProperty("--dx", Math.round(Math.random() * 80 - 40) + "px");
+    h.style.left = Math.round(30 + Math.random() * 40) + "%";
+    h.style.animationDelay = (i * 0.12) + "s";
+    wrap.appendChild(h);
+    (function(el){ setTimeout(function(){ if (el.parentNode) el.parentNode.removeChild(el); }, 1700); })(h);
+  }
+}
+
+/* ---------- home ---------- */
+var editing = false;
+var pending = todayStr();
+var lastStage = -1;
+
+function captionFor(n, has){
+  if (!has) return "選好日子，按下「開始計算」。";
+  if (n === 0) return "今天是第一天。第一步最難，你已經踏出去了。";
+  if (n < 7) return "每一天都算數，慢慢來。";
+  if (n < 30) return "超過一個星期了，你做得很好。";
+  if (n < 60) return "超過一個月了，生活開始有自己的節奏。";
+  return "這已經是一段全新的日子了。";
+}
+
+function renderHome(){
+  var has = !!S.start;
+  var showForm = !has || editing;
+  var val = showForm ? pending : S.start;
+  var n = daysSince(val);
+  $("#startInput").max = todayStr();
+
+  $("#countNum").textContent = n;
+  $("#eyebrow").textContent = has && !editing ? "沒有聯絡已經" : (has ? "改成這天的話" : "從這天開始的話");
+  $("#countCap").textContent = captionFor(n, has);
+  var st = stageFor(n);
+  if (st !== lastStage){ lastStage = st; $("#mascot").innerHTML = frog(st); }
+
+  $("#dateLine").hidden = showForm;
+  $("#dateForm").hidden = !showForm;
+  $("#startBtn").textContent = has ? "儲存日期" : "開始計算";
+  if (has) $("#sinceText").textContent = "從 " + fmtLong(S.start) + " 開始";
+
+  var cur = has ? daysSince(S.start) : 0;
+  var best = Math.max(S.best, cur);
+  $("#bestText").textContent = has && best > 0 ? "最長紀錄 " + best + " 天" : "";
+
+  var next = null, prev = 0;
+  for (var i = 0; i < REWARDS.length; i++){ if (REWARDS[i].d > cur){ next = REWARDS[i]; break; } prev = REWARDS[i].d; }
+  var pct = next ? Math.round((cur - prev) / (next.d - prev) * 100) : 100;
+  $("#barFill").style.width = pct + "%";
+  $("#bar").setAttribute("aria-valuenow", String(pct));
+  $("#nextText").textContent = next ? "再 " + (next.d - cur) + " 天，就可以" + next.t + "。" : "六十天的集章卡集滿了，你好厲害。";
+
+  var grid = $("#grid"); grid.textContent = "";
+  var got = Math.min(cur, 60);
+  for (var d = 1; d <= 60; d++){
+    var c = document.createElement("div");
+    var cls = "cell";
+    if (has && cur >= d) cls += " on";
+    else if (has && d === cur + 1) cls += " next";
+    if (GIFT[d]) cls += " gift";
+    c.className = cls; c.textContent = d;
+    grid.appendChild(c);
+  }
+  grid.setAttribute("aria-label", "六十天集章卡，已集 " + got + " 格");
+  $("#stampCount").textContent = got + " / 60";
+
+  var box = $("#rewards"); box.textContent = "";
+  var ready = 0;
+  REWARDS.forEach(function(r){
+    var done = S.redeemed.indexOf(r.d) >= 0;
+    var ok = has && cur >= r.d;
+    if (ok && !done) ready++;
+    var row = document.createElement("div");
+    row.className = "reward" + (ok && !done ? " ready" : "") + (done ? " done" : "");
+    var rd = document.createElement("div"); rd.className = "rd"; rd.innerHTML = "<b>" + r.d + "</b><span>天</span>";
+    var rt = document.createElement("p"); rt.className = "rt"; rt.textContent = r.t;
+    var ra = document.createElement("div"); ra.className = "ra";
+    if (done){
+      var tag = document.createElement("span"); tag.textContent = "已兌換";
+      var undo = document.createElement("button"); undo.type = "button"; undo.className = "link"; undo.textContent = "取消";
+      undo.addEventListener("click", function(){ redeem(r.d, false); });
+      ra.appendChild(tag); ra.appendChild(undo);
+    } else if (ok){
+      var b = document.createElement("button"); b.type = "button"; b.className = "mini hot"; b.textContent = "去兌換";
+      b.addEventListener("click", function(){ redeem(r.d, true); });
+      ra.appendChild(b);
+    } else {
+      var left = document.createElement("span"); left.textContent = "還有 " + (r.d - cur) + " 天";
+      ra.appendChild(left);
+    }
+    row.appendChild(rd); row.appendChild(rt); row.appendChild(ra);
+    box.appendChild(row);
+  });
+  var rb = $("#readyBtn");
+  rb.hidden = ready === 0;
+  if (ready) rb.textContent = "有 " + ready + " 個獎勵等你兌換";
+
+  if (!has) $("#resetBox").hidden = true;
+  $("#homeQuote").textContent = dailyQuote().text;
+}
+
+function redeem(d, on){
+  var i = S.redeemed.indexOf(d);
+  if (on && i < 0){ S.redeemed.push(d); }
+  if (!on && i >= 0){ S.redeemed.splice(i, 1); }
+  saveProfile(); renderHome();
+  if (on){ toast("兌換成功，好好享受！"); burst(5); sayLine("呱！快去享受吧！"); }
+}
+
+/* ---------- notes ---------- */
+var confirmDel = null;
+var freshTs = 0;
+function moodOf(k){ for (var i = 0; i < MOODS.length; i++){ if (MOODS[i].k === k) return MOODS[i]; } return MOODS[0]; }
+
+function buildNoteOptions(){
+  var box = $("#moodList"); box.textContent = "";
+  MOODS.forEach(function(m, i){
+    var lab = document.createElement("label"); lab.className = "mood m-" + m.k;
+    var inp = document.createElement("input"); inp.type = "radio"; inp.name = "mood"; inp.value = m.k; inp.id = "mood-" + m.k;
+    if (i === 0) inp.checked = true;
+    var sp = document.createElement("span"); sp.textContent = m.face + " " + m.label;
+    lab.appendChild(inp); lab.appendChild(sp); box.appendChild(lab);
+  });
+
+  var pl = $("#paperList"); pl.textContent = "";
+  PAPERS.forEach(function(p, i){
+    var lab = document.createElement("label"); lab.className = "pick";
+    var inp = document.createElement("input"); inp.type = "radio"; inp.name = "paper"; inp.value = p.k; inp.id = "paper-" + p.k;
+    if (i === 0) inp.checked = true;
+    inp.addEventListener("change", function(){ $("#paper").className = "paper paper-" + p.k; });
+    var sp = document.createElement("span"); sp.className = "paper-" + p.k; sp.textContent = p.label;
+    lab.appendChild(inp); lab.appendChild(sp); pl.appendChild(lab);
+  });
+
+  var sl = $("#stickerList"); sl.textContent = "";
+  STICKERS.forEach(function(s, i){
+    var lab = document.createElement("label"); lab.className = "pick" + (s.k === "none" ? "" : " st");
+    var inp = document.createElement("input"); inp.type = "radio"; inp.name = "sticker"; inp.value = s.k; inp.id = "sticker-" + s.k;
+    inp.setAttribute("aria-label", s.label);
+    if (i === 0) inp.checked = true;
+    var sp = document.createElement("span");
+    if (s.k === "none") sp.textContent = "不貼"; else sp.innerHTML = stickerSVG(s.k);
+    lab.appendChild(inp); lab.appendChild(sp); sl.appendChild(lab);
+  });
+
+  var st = $("#starterList"); st.textContent = "";
+  STARTERS.forEach(function(t){
+    var b = document.createElement("button"); b.type = "button"; b.className = "starter"; b.textContent = t;
+    b.addEventListener("click", function(){
+      var ta = $("#noteText");
+      var s = ta.selectionStart == null ? ta.value.length : ta.selectionStart;
+      var e = ta.selectionEnd == null ? s : ta.selectionEnd;
+      ta.setRangeText(t, s, e, "end");
+      ta.focus();
+      ta.dispatchEvent(new Event("input"));
+    });
+    st.appendChild(b);
+  });
+}
+
+function renderNotes(){
+  var list = $("#noteList"); list.textContent = "";
+  $("#noteCount").textContent = S.notes.length ? "共 " + S.notes.length + " 張" : "";
+  if (!S.notes.length){
+    var e = document.createElement("div"); e.className = "empty card";
+    var mm = document.createElement("div"); mm.className = "mascot"; mm.innerHTML = frog(1);
+    var p1 = document.createElement("p"); p1.textContent = "還沒有小紙條。";
+    var p2 = document.createElement("p"); p2.className = "soft"; p2.textContent = "想說的話先放在這裡，不用傳出去。";
+    e.appendChild(mm); e.appendChild(p1); e.appendChild(p2); list.appendChild(e);
+    return;
+  }
+  S.notes.forEach(function(n, idx){
+    var m = moodOf(n.mood);
+    var wrap = document.createElement("article"); wrap.className = "note" + (freshTs && n.ts === freshTs ? " fresh" : "");
+
+    var meta = document.createElement("div"); meta.className = "note-meta";
+    var st = document.createElement("span"); st.className = "sticker m-" + m.k + "-bg"; st.textContent = m.face + " " + m.label;
+    var when = document.createElement("span"); when.textContent = fmtStamp(n.ts || Date.now());
+    meta.appendChild(st); meta.appendChild(when);
+
+    var nw = document.createElement("div"); nw.className = "note-wrap";
+    var tape = document.createElement("span"); tape.className = "tape-s tp" + (idx % 4); tape.setAttribute("aria-hidden", "true");
+    var bub = document.createElement("div");
+    bub.className = "note-bubble paper-" + (paperKnown(n.paper) ? n.paper : "dots");
+    bub.textContent = n.text;
+    nw.appendChild(tape); nw.appendChild(bub);
+    if (stickerKnown(n.sticker)){
+      var sk = document.createElement("div"); sk.className = "n-sticker"; sk.innerHTML = stickerSVG(n.sticker); nw.appendChild(sk);
+    }
+    if (n.dayNo != null){
+      var pm = document.createElement("div"); pm.className = "postmark"; pm.setAttribute("aria-label", "第 " + n.dayNo + " 天");
+      pm.innerHTML = "<span>第</span><b>" + (+n.dayNo || 0) + "</b><span>天</span>";
+      nw.appendChild(pm);
+    }
+
+    var foot = document.createElement("div"); foot.className = "note-foot";
+    if (confirmDel === n.id){
+      var cf = document.createElement("div"); cf.className = "del-confirm";
+      var q = document.createElement("span"); q.textContent = "撕掉這張？";
+      var yes = document.createElement("button"); yes.type = "button"; yes.className = "mini hot"; yes.textContent = "撕掉";
+      yes.addEventListener("click", function(){ confirmDel = null; delNote(n.id); if (backend === "cloud") renderNotes(); });
+      var no = document.createElement("button"); no.type = "button"; no.className = "mini"; no.textContent = "留著";
+      no.addEventListener("click", function(){ confirmDel = null; renderNotes(); });
+      cf.appendChild(q); cf.appendChild(yes); cf.appendChild(no); foot.appendChild(cf);
+    } else {
+      var un = document.createElement("span"); un.textContent = "未送出";
+      var del = document.createElement("button"); del.type = "button"; del.className = "link"; del.textContent = "撕掉";
+      del.addEventListener("click", function(){ confirmDel = n.id; renderNotes(); });
+      foot.appendChild(un); foot.appendChild(del);
+    }
+    wrap.appendChild(meta); wrap.appendChild(nw); wrap.appendChild(foot);
+    list.appendChild(wrap);
+  });
+}
+
+/* ---------- cheer ---------- */
+var catFilter = -1;
+var curQuote = dailyQuote();
+var editId = null, editDraft = "", delCustom = null;
+
+function heartBtn(q){
+  var fav = S.favs.indexOf(q.id) >= 0;
+  var b = document.createElement("button"); b.type = "button"; b.className = "heart"; b.setAttribute("aria-pressed", String(fav));
+  b.setAttribute("aria-label", fav ? "取消收藏" : "收藏這一句");
+  b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>';
+  b.addEventListener("click", function(){ toggleFav(q.id); });
+  return b;
+}
+function quoteRow(q){
+  var row = document.createElement("div"); row.className = "quote-row";
+  var p = document.createElement("p"); p.textContent = q.text;
+  row.appendChild(p); row.appendChild(heartBtn(q));
+  return row;
+}
+function customRow(q){
+  var row = document.createElement("div"); row.className = "quote-row custom";
+  var qa = document.createElement("div"); qa.className = "qa";
+  if (editId === q.id){
+    var ta = document.createElement("textarea"); ta.className = "edit-area"; ta.maxLength = 140; ta.rows = 2;
+    ta.value = editDraft; ta.setAttribute("aria-label", "修改這一句");
+    ta.addEventListener("input", function(){ editDraft = ta.value; });
+    var save = document.createElement("button"); save.type = "button"; save.className = "mini hot"; save.textContent = "儲存";
+    save.addEventListener("click", function(){ saveEdit(q.id); });
+    var cancel = document.createElement("button"); cancel.type = "button"; cancel.className = "mini"; cancel.textContent = "取消";
+    cancel.addEventListener("click", function(){ editId = null; renderCheer(); });
+    qa.appendChild(cancel); qa.appendChild(save);
+    row.appendChild(ta); row.appendChild(qa);
+    return row;
+  }
+  var p = document.createElement("p"); p.className = "qtext"; p.textContent = q.text;
+  qa.appendChild(heartBtn(q));
+  var ed = document.createElement("button"); ed.type = "button"; ed.className = "mini"; ed.textContent = "改";
+  ed.setAttribute("aria-label", "修改這一句");
+  ed.addEventListener("click", function(){ editId = q.id; editDraft = q.text; delCustom = null; renderCheer(); });
+  qa.appendChild(ed);
+  if (delCustom === q.id){
+    var ask = document.createElement("span"); ask.className = "soft"; ask.textContent = "刪掉？";
+    var y = document.createElement("button"); y.type = "button"; y.className = "mini hot"; y.textContent = "刪掉";
+    y.addEventListener("click", function(){ removeCustom(q.id); });
+    var n = document.createElement("button"); n.type = "button"; n.className = "mini"; n.textContent = "留著";
+    n.addEventListener("click", function(){ delCustom = null; renderCheer(); });
+    qa.appendChild(ask); qa.appendChild(y); qa.appendChild(n);
+  } else {
+    var d = document.createElement("button"); d.type = "button"; d.className = "mini"; d.textContent = "刪";
+    d.setAttribute("aria-label", "刪掉這一句");
+    d.addEventListener("click", function(){ delCustom = q.id; editId = null; renderCheer(); });
+    qa.appendChild(d);
+  }
+  row.appendChild(p); row.appendChild(qa);
+  return row;
+}
+
+function renderCheer(){
+  if (!quoteById(curQuote.id)) curQuote = dailyQuote();
+
+  var chips = $("#chips"); chips.textContent = "";
+  [{ n: "全部", i: -1 }].concat(CAT_NAMES.map(function(c, i){ return { n: c, i: i }; })).forEach(function(c){
+    var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = c.n;
+    b.setAttribute("aria-pressed", String(catFilter === c.i));
+    b.addEventListener("click", function(){ catFilter = c.i; renderCheer(); });
+    chips.appendChild(b);
+  });
+
+  $("#drawTag").textContent = CAT_NAMES[curQuote.cat];
+  $("#drawText").textContent = curQuote.text;
+  var fav = S.favs.indexOf(curQuote.id) >= 0;
+  $("#drawHeart").setAttribute("aria-pressed", String(fav));
+  $("#drawHeart").setAttribute("aria-label", fav ? "取消收藏" : "收藏這一句");
+
+  var favs = S.favs.map(quoteById).filter(Boolean);
+  $("#favBox").hidden = !favs.length;
+  var fl = $("#favList"); fl.textContent = "";
+  favs.forEach(function(q){ fl.appendChild(quoteRow(q)); });
+
+  var cq = S.custom.map(toQuote);
+  var showCustom = catFilter < 0 ? cq.length > 0 : catFilter === OWN;
+  $("#customBox").hidden = !showCustom;
+  var cl = $("#customList"); cl.textContent = "";
+  if (showCustom){
+    if (!cq.length){
+      var em = document.createElement("p"); em.className = "soft"; em.textContent = "還沒有自己寫的句子。在上面寫一句，之後抽卡也會抽到。";
+      cl.appendChild(em);
+    } else cq.forEach(function(q){ cl.appendChild(customRow(q)); });
+  }
+
+  var al = $("#allList"); al.textContent = "";
+  CATS.forEach(function(c, ci){
+    if (catFilter >= 0 && catFilter !== ci) return;
+    var g = document.createElement("div"); g.className = "quote-group";
+    var h = document.createElement("h3"); h.textContent = c.name; g.appendChild(h);
+    ALL.filter(function(q){ return q.cat === ci; }).forEach(function(q){ g.appendChild(quoteRow(q)); });
+    al.appendChild(g);
+  });
+}
+function toggleFav(id){
+  var i = S.favs.indexOf(id);
+  if (i >= 0) S.favs.splice(i, 1); else S.favs.push(id);
+  saveProfile(); renderCheer();
+}
+function saveEdit(id){
+  var t = editDraft.trim();
+  if (!t){ toast("句子不能是空的。"); return; }
+  for (var i = 0; i < S.custom.length; i++){ if (S.custom[i].id === id) S.custom[i].text = t; }
+  editId = null; saveProfile(); renderCheer(); toast("改好了。");
+}
+function removeCustom(id){
+  S.custom = S.custom.filter(function(c){ return c.id !== id; });
+  S.favs = S.favs.filter(function(f){ return f !== id; });
+  delCustom = null; saveProfile(); renderCheer(); toast("刪掉了。");
+}
+function draw(){
+  var pool = allQuotes().filter(function(q){ return catFilter < 0 || q.cat === catFilter; });
+  if (!pool.length){ toast("這一類還沒有句子，先寫一句給自己吧。"); $("#ownText").focus(); return; }
+  if (pool.length > 1) pool = pool.filter(function(q){ return q.id !== curQuote.id; });
+  curQuote = pool[Math.floor(Math.random() * pool.length)];
+  var omi = $("#drawOmi");
+  omi.classList.remove("shake", "pop"); void omi.offsetWidth; omi.classList.add("shake");
+  setTimeout(function(){ omi.classList.remove("shake"); omi.classList.add("pop"); renderCheer(); }, 420);
+}
+
+function renderFoot(){
+  $("#foot").textContent = backend === "cloud"
+    ? "你寫的一切只存在你的帳號，只有你看得到。"
+    : "資料存在這個瀏覽器裡，換裝置或清除網站資料後會不見。";
+}
+
+/* ---------- tabs ---------- */
+function showTab(name){
+  ["home", "notes", "cheer"].forEach(function(t){
+    $("#panel-" + t).hidden = t !== name;
+    $("#tab-" + t).setAttribute("aria-selected", String(t === name));
+  });
+  window.scrollTo(0, 0);
+}
+$$(".tab").forEach(function(b){ b.addEventListener("click", function(){ showTab(b.getAttribute("data-tab")); }); });
+$("#goCheer").addEventListener("click", function(){ showTab("cheer"); });
+
+/* ---------- home actions ---------- */
+$("#startInput").addEventListener("input", function(e){ pending = e.target.value || todayStr(); renderHome(); });
+$("#startBtn").addEventListener("click", function(){
+  var v = $("#startInput").value || todayStr();
+  if (dayNum(v) > dayNum(todayStr())) v = todayStr();
+  S.start = v; editing = false; pending = v;
+  saveProfile(); renderHome(); toast("記下來了。"); burst(3);
+});
+$("#editDate").addEventListener("click", function(){
+  editing = true; pending = S.start; $("#startInput").value = S.start; renderHome(); $("#startInput").focus();
+});
+$("#resetOpen").addEventListener("click", function(){ $("#resetBox").hidden = false; });
+$("#resetNo").addEventListener("click", function(){ $("#resetBox").hidden = true; });
+$("#resetYes").addEventListener("click", function(){
+  var c = S.start ? daysSince(S.start) : 0;
+  S.best = Math.max(S.best, c); S.resets += 1; S.start = todayStr(); pending = S.start; S.redeemed = [];
+  $("#resetBox").hidden = true; saveProfile(); renderHome(); toast("今天重新開始，一步一步來。");
+});
+$("#readyBtn").addEventListener("click", function(){
+  var t = $("#rewardsTitle"); if (t && t.scrollIntoView) t.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+$("#mascot").addEventListener("click", function(){
+  var m = $("#mascot");
+  m.classList.remove("hop"); void m.offsetWidth; m.classList.add("hop");
+  burst(3);
+  var lines = SAYS[lastStage < 0 ? 1 : lastStage];
+  sayLine(lines[Math.floor(Math.random() * lines.length)]);
+});
+$("#mascot").addEventListener("animationend", function(e){ if (e.animationName === "hop") $("#mascot").classList.remove("hop"); });
+
+/* ---------- notes actions ---------- */
+var DRAFT_KEY = "wasurekusa:draft";
+try { var dr = sessionStorage.getItem(DRAFT_KEY); if (dr) $("#noteText").value = dr; } catch (e) {}
+var draftTimer = 0;
+$("#noteText").addEventListener("input", function(e){
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(function(){ try { sessionStorage.setItem(DRAFT_KEY, e.target.value); } catch (x) {} }, 300);
+});
+$("#noteForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var ta = $("#noteText"); var text = ta.value.trim();
+  if (!text){ toast("先寫一點點，再收進信箱。"); ta.focus(); return; }
+  var mood = ($("input[name=mood]:checked") || {}).value || "miss";
+  var paper = ($("input[name=paper]:checked") || {}).value || "dots";
+  var sticker = ($("input[name=sticker]:checked") || {}).value || "none";
+  var ts = Date.now();
+  freshTs = ts;
+  addNote({ text: text, mood: mood, paper: paper, sticker: sticker, ts: ts, dayNo: S.start ? daysSince(S.start) : null });
+  ta.value = ""; try { sessionStorage.removeItem(DRAFT_KEY); } catch (x) {}
+  toast("收進信箱了，不會寄出。");
+  setTimeout(function(){ freshTs = 0; }, 2000);
+});
+
+/* ---------- cheer actions ---------- */
+$("#drawBtn").addEventListener("click", draw);
+$("#drawHeart").addEventListener("click", function(){ toggleFav(curQuote.id); });
+$("#ownText").addEventListener("input", function(e){ $("#ownCount").textContent = e.target.value.length + " / 140"; });
+$("#ownForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var ta = $("#ownText"); var text = ta.value.trim();
+  if (!text){ toast("先寫一句，再加進來。"); ta.focus(); return; }
+  if (S.custom.length >= 100){ toast("最多存 100 句，先刪掉一些吧。"); return; }
+  var c = { id: newId("u"), text: text };
+  S.custom.unshift(c);
+  saveProfile();
+  curQuote = toQuote(c);
+  ta.value = ""; $("#ownCount").textContent = "0 / 140";
+  renderCheer();
+  toast("加好了，抽卡時也會抽到。");
+});
+
+/* ---------- urge sheet ---------- */
+var urgeTimer = 0, urgeEnd = 0, urgeFrom = null;
+function tickUrge(){
+  var left = urgeEnd - Date.now();
+  if (left <= 0){
+    $("#urgeTimer").textContent = "0:00";
+    $("#breathText").textContent = "撐過來了";
+    clearInterval(urgeTimer); urgeTimer = 0; return;
+  }
+  var s = Math.ceil(left / 1000);
+  $("#urgeTimer").textContent = Math.floor(s / 60) + ":" + pad(s % 60);
+  var el = (600000 - left) / 1000 % 12;
+  $("#breathText").textContent = el < 4 ? "吸氣" : el < 6 ? "停一下" : "慢慢吐氣";
+}
+function openUrge(){
+  urgeFrom = document.activeElement;
+  $("#urge").hidden = false;
+  urgeEnd = Date.now() + 600000; tickUrge();
+  clearInterval(urgeTimer); urgeTimer = setInterval(tickUrge, 250);
+  $("#urgeClose").focus();
+}
+function closeUrge(){
+  $("#urge").hidden = true; clearInterval(urgeTimer); urgeTimer = 0;
+  if (urgeFrom && urgeFrom.focus) urgeFrom.focus();
+}
+$("#urgeOpen").addEventListener("click", openUrge);
+$("#urgeClose").addEventListener("click", closeUrge);
+$("#urgeWrite").addEventListener("click", function(){ closeUrge(); showTab("notes"); $("#noteText").focus(); });
+document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !$("#urge").hidden) closeUrge(); });
+
+/* ---------- boot ---------- */
+function wavePath(y){
+  var d = "M-40 " + y + " q10 -6 20 0";
+  for (var i = 0; i < 31; i++) d += " t20 0";
+  return d;
+}
+$("#waveA").setAttribute("d", wavePath(60));
+$("#waveB").setAttribute("d", wavePath(80));
+buildBunting();
+buildNoteOptions();
+loadLocal();
+$("#startInput").value = pending;
+renderHome(); renderNotes(); renderCheer(); renderFoot();
+initCloud();
+setInterval(renderHome, 60000);
+document.addEventListener("visibilitychange", function(){ if (!document.hidden) renderHome(); });
+})();
+</script>
+
+</body></html>
